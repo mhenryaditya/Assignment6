@@ -5,6 +5,7 @@ import axios from "axios";
 import Loading from "../components/Loading";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import env from "react-dotenv";
 
 function App() {
   const input = useSelector(state => state)
@@ -15,10 +16,10 @@ function App() {
   const fetchAPI = async () => {
     setLoading(true)
     setOnline(true)
-    await axios.get(`https://www.omdbapi.com/?apikey=958788b3&s=${input.data}`)
+    await axios.get(`https://www.omdbapi.com/?apikey=${env.API_KEY}&s=${input.data}`)
     .then(res => {
       setDataAPI(res.data.Search)
-      setLoading(false)
+      setLoading(false)   
     }).catch(err => {
       Swal.fire('Error Network Connection!', "Make sure you've connected to the internet.", 'error') 
       setOnline(false)
